@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CargaController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -46,6 +47,15 @@ Route::prefix('/cargas')->group(function () {
     Route::get('/{carga}', [CargaController::class, 'show'])->name('cargas.show');
     Route::put('/{carga}', [CargaController::class, 'update'])->name('cargas.update');
     Route::delete('/{carga}', [CargaController::class, 'destroy'])->name('cargas.destroy');
+});
+
+// Pacotes CRUD
+Route::prefix('/invoices')->group(function () {
+    // Route::get('/', [InvoiceController::class, 'index'])->name('pacotes.index');
+    Route::post('/', [InvoiceController::class, 'store'])->name('invoices.store');
+    Route::get('/{invoices}', [InvoiceController::class, 'show'])->name('invoices.show');
+    Route::put('/{invoices}', [InvoiceController::class, 'update'])->name('invoices.update');
+    Route::delete('/{invoices}', [InvoiceController::class, 'destroy'])->name('invoices.destroy');
 });
 
 

@@ -17,4 +17,9 @@ class Carga extends Model
         'despachante',
         'embarcador',
     ];
+
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class);
+    }
 }

@@ -46,7 +46,7 @@
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
-                                        <label for="peso_aprox">Peso Guia</label>
+                                        <label for="peso_guia">Peso Guia</label>
                                         <input class="form-control" type="number" step="0.1" value="{{  $carga->peso_guia; }}" id="peso_guia" name="peso_guia">
                                     </div>
                                 </div>
@@ -85,10 +85,10 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title mb-4">Invoices</h4>
-                        <button type="button" class="btn btn-success waves-effect waves-light mb-2" data-bs-toggle="modal" data-bs-target="#ModalAddPacote">
-                            <i class="fas fa-plus"></i> Add Entrada
+                        <button type="button" class="btn btn-success waves-effect waves-light mb-2" data-bs-toggle="modal" data-bs-target="#ModalInvoice">
+                            <i class="fas fa-plus"></i> Add Invoice
                         </button>
-                        <button type="button" class="btn btn-success waves-effect waves-light mb-2" data-bs-toggle="modal" data-bs-target="#ModalAddWarehouse">
+                        <button type="button" class="btn btn-success waves-effect waves-light mb-2" data-bs-toggle="modal" data-bs-target="#ModalPagamento">
                             <i class="fas fa-plus"></i> Add Pagamento
                         </button>
                         <div class="table-responsive">
@@ -104,19 +104,15 @@
                                     </tr>
                                 </thead><!-- end thead -->
                                 <tbody>
-                                    {{-- @foreach ($carga->pacotes as $pacote)
-                                    <tr class="abrirModal" data-pacote-id="{{ $pacote->id; }}" data-bs-toggle="modal" data-bs-target="#detalhesPacoteModal">
-                                        <td><h6 class="mb-0">{{ $pacote->rastreio }}</h6></td>
-                                        <td>{{ '('.$pacote->cliente->caixa_postal.')' }}</td>
-                                        <td>{{ $pacote->qtd }}</td>
-                                        <td>{{ $pacote->peso_aprox }}</td>
-                                        @if ($pacote->peso > 0)
-                                            <td>{{ $pacote->peso }}</td>
-                                        @else
-                                            <td>Aguardando</td>
-                                        @endif
+                                    @foreach ($carga->invoices as $invoice)
+                                    <tr>
+                                        <td>{{ '('.$invoice->cliente->codigo.') '.$invoice->cliente->apelido }}</td>
+                                        <td>{{ $invoice->peso_real }}</td>
+                                        <td>{{  $invoice->peso_real }}</td>
+                                        <td>{{  $invoice->valor_cobrado }}</td>
+                                        <td>{{  'Aguardando' }}</td>
                                     </tr>
-                                    @endforeach --}}
+                                    @endforeach
                                      <!-- end -->
                                 </tbody><!-- end tbody -->
                             </table> <!-- end table -->
@@ -137,58 +133,6 @@
             </div>
             <!-- end col -->
         </div>
-
-        {{-- <div class="modal fade bs-example-modal-lg" tabindex="-1" aria-labelledby="receberModal" aria-hidden="true" style="display: none;" id="receberModal">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="myLargeModalLabel">Receber Carga</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <form class="form-horizontal mt-3" method="POST" action="{{ route('pacotes.atualizarCarga') }}" id="formNovoPacote">
-                        @csrf
-                        <div class="modal-body">
-                            <!-- Campo hidden para armazenar o id da Warehouse -->
-                            <input type="hidden" name="carga_id" value="{{ $carga->id }}">
-                            <div class="col">
-                                <div class="form-group">
-                                    <label for="data">Data Envio</label>
-                                    <input class="form-control" type="date" value="{{ \Carbon\Carbon::today()->format('Y-m-d') ; }}" id="data_enviada" name="data_enviada">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label for="cliente_id">Despachante</label>
-                                        <select class="selectpicker form-control" multiple data-live-search="true" id="pacote_id" name="pacote_id[]" required>
-                                            @foreach ($all_embarcadores as $embarcador)
-                                                <option value="{{ $embarcador->id }}"> {{ $embarcador->nome }} </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label for="cliente_id">Transportadora</label>
-                                        <select class="selectpicker form-control" multiple data-live-search="true" id="pacote_id" name="pacote_id[]" required>
-                                            @foreach ($all_pacotes as $pacote)
-                                                <option value="{{ $pacote->id }}"> {{ $pacote->rastreio }} </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Fechar</button>
-                            <button type="submit" class="btn btn-primary waves-effect waves-light" form="formNovoPacote">Adicionar</button>
-                        </div>
-                    </form>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div> --}}
 
         <!-- Modal de Confirmação -->
         <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModal" aria-hidden="true">
@@ -212,6 +156,57 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div class="modal fade bs-example-modal-lg" tabindex="-1" aria-labelledby="ModalInvoice" aria-hidden="true" style="display: none;" id="ModalInvoice">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="myLargeModalLabel">Nova Invoice</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form class="form-horizontal mt-3" method="POST" action="{{ route('invoices.store' )}}" id="formNewInvoice">
+                        @csrf
+                        <div class="modal-body">
+                            <input type="hidden" name="carga_id" value="{{ $carga->id }}">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="cliente_id">Cliente</label>
+                                        <select class="selectpicker form-control" data-live-search="true" id="cliente_id" name="cliente_id" required>
+                                            @foreach ($all_clientes as $cliente)
+                                                <option value="{{ $cliente->id }}"> ({{ $cliente->codigo }}) {{ $cliente->apelido }} </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="peso_real">Peso Real</label>
+                                        <input class="form-control" type="number" step="0.1" value="0.0" id="peso_real" name="peso_real">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="peso_cobrado">Peso Cobrado</label>
+                                        <input class="form-control" type="number" step="0.1" value="0.0" id="peso_cobrado" name="peso_cobrado">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="valor_cobrado">Valor Cobrado</label>
+                                        <input class="form-control" type="number" step="0.10" value="0.00" id="valor_cobrado" name="valor_cobrado">
+                                    </div>
+                                </div>                                
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Fechar</button>
+                            <button type="submit" class="btn btn-primary waves-effect waves-light" form="formNewInvoice">Adicionar</button>
+                        </div>
+                    </form>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
         </div>
 
     </div>

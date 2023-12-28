@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Carga;
+use App\Models\Cliente;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -72,8 +73,10 @@ class CargaController extends Controller
 
             $tipos = ['Aereo', 'Maritimo'];
 
+            $all_clientes = Cliente::all();
+
             // Retornar a view com os detalhes do shipper
-            return view('carga.show', compact('carga', 'tipos'));
+            return view('carga.show', compact('carga', 'tipos', 'all_clientes'));
         } catch (\Exception $e) {
             // Exibir uma mensagem de erro ou redirecionar para uma página de erro
             return redirect()->route('cargas.index')->with('toastr', [
