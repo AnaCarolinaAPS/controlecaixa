@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CargaController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -29,7 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Shippers CRUD
+// Clientes CRUD
 Route::prefix('/clientes')->group(function () {
     Route::get('/', [ClienteController::class, 'index'])->name('clientes.index');
     Route::post('/', [ClienteController::class, 'store'])->name('clientes.store');
@@ -37,5 +38,15 @@ Route::prefix('/clientes')->group(function () {
     Route::put('/{cliente}', [ClienteController::class, 'update'])->name('clientes.update');
     Route::delete('/{cliente}', [ClienteController::class, 'destroy'])->name('clientes.destroy');
 });
+
+// Cargas CRUD
+Route::prefix('/cargas')->group(function () {
+    Route::get('/', [CargaController::class, 'index'])->name('cargas.index');
+    Route::post('/', [CargaController::class, 'store'])->name('cargas.store');
+    Route::get('/{carga}', [CargaController::class, 'show'])->name('cargas.show');
+    Route::put('/{carga}', [CargaController::class, 'update'])->name('cargas.update');
+    Route::delete('/{carga}', [CargaController::class, 'destroy'])->name('cargas.destroy');
+});
+
 
 require __DIR__.'/auth.php';
