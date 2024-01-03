@@ -4,6 +4,8 @@ use App\Http\Controllers\CargaController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\SubcategoriaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -58,5 +60,22 @@ Route::prefix('/invoices')->group(function () {
     Route::delete('/{invoices}', [InvoiceController::class, 'destroy'])->name('invoices.destroy');
 });
 
+// Pacotes CRUD
+Route::prefix('/categorias')->group(function () {
+    Route::get('/', [CategoriaController::class, 'index'])->name('categorias.index');
+    Route::post('/', [CategoriaController::class, 'store'])->name('categorias.store');
+    Route::get('/{categoria}', [CategoriaController::class, 'show'])->name('categorias.show');
+    Route::put('/{categoria}', [CategoriaController::class, 'update'])->name('categorias.update');
+    Route::delete('/{categoria}', [CategoriaController::class, 'destroy'])->name('categorias.destroy');
+});
+
+// Pacotes CRUD
+Route::prefix('/subcategorias')->group(function () {
+    // Route::get('/', [CategoriaController::class, 'index'])->name('categorias.index');
+    Route::post('/', [SubcategoriaController::class, 'store'])->name('subcategorias.store');
+    Route::get('/{subcategoria}', [SubcategoriaController::class, 'show'])->name('subcategorias.show');
+    Route::put('/{subcategoria}', [SubcategoriaController::class, 'update'])->name('subcategorias.update');
+    Route::delete('/{subcategoria}', [SubcategoriaController::class, 'destroy'])->name('subcategorias.destroy');
+});
 
 require __DIR__.'/auth.php';

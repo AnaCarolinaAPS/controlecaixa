@@ -25,6 +25,12 @@
                             <span>Cargas</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('categorias.index'); }}" class="waves-effect">
+                            <i class="ri-dashboard-line"></i>
+                            <span>Categorias</span>
+                        </a>
+                    </li>
                 </li>
             </ul>
         </div>
