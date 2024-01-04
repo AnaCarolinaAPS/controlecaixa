@@ -7,6 +7,16 @@ use App\Models\Subcategoria;
 
 class SubcategoriaController extends Controller
 {
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $all_subcategorias = Subcategoria::all();
+        return view('subcategoria.index', compact('all_subcategorias'));
+    }
+
     /**
      * Store a newly created resource in storage.
      */
@@ -15,14 +25,12 @@ class SubcategoriaController extends Controller
         try {
             // Validação dos dados do formulário
             $request->validate([
-                'nome' => 'required|string|max:255|unique:categorias',
-                'categoria_id' => 'required',
+                'nome' => 'required|string|max:255|unique:categorias',                
                 // Adicione outras regras de validação conforme necessário
             ]);
 
             Subcategoria::create([
                 'nome' => $request->input('nome'),
-                'categoria_id' => $request->input('categoria_id'),
                 // Adicione outros campos conforme necessário
             ]);
 
@@ -70,13 +78,11 @@ class SubcategoriaController extends Controller
             // Validação dos dados do formulário
             $request->validate([
                 'nome' => 'required|string|max:255|unique:categorias',
-                'categoria_id' => 'required',
                 // Adicione outras regras de validação conforme necessário
             ]);
 
             $categoria->update([
                 'nome' => $request->input('nome'),
-                'categoria_id' => $request->input('categoria_id'),
                 // Adicione outros campos conforme necessário
             ]);
 

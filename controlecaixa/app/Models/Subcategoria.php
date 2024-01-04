@@ -16,11 +16,10 @@ class Subcategoria extends Model
      */
     protected $fillable = [
         'nome',
-        'categoria_id',
     ];
 
-    public function categoria()
+    public function despesas()
     {
-        return $this->belongsTo(Categoria::class);
+        return $this->hasMany(Despesa::class);
     }
 }

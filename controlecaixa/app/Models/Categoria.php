@@ -18,8 +18,8 @@ class Categoria extends Model
         'nome',
     ];
 
-    public function subcategorias()
+    public function despesas()
     {
-        return $this->hasMany(Subcategoria::class);
+        return $this->hasMany(Despesa::class);
     }
 }

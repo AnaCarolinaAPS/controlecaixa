@@ -6,6 +6,7 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\SubcategoriaController;
+use App\Http\Controllers\DespesaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -71,11 +72,20 @@ Route::prefix('/categorias')->group(function () {
 
 // Pacotes CRUD
 Route::prefix('/subcategorias')->group(function () {
-    // Route::get('/', [CategoriaController::class, 'index'])->name('categorias.index');
+    Route::get('/', [SubcategoriaController::class, 'index'])->name('subcategorias.index');
     Route::post('/', [SubcategoriaController::class, 'store'])->name('subcategorias.store');
     Route::get('/{subcategoria}', [SubcategoriaController::class, 'show'])->name('subcategorias.show');
     Route::put('/{subcategoria}', [SubcategoriaController::class, 'update'])->name('subcategorias.update');
     Route::delete('/{subcategoria}', [SubcategoriaController::class, 'destroy'])->name('subcategorias.destroy');
+});
+
+// Pacotes CRUD
+Route::prefix('/despesas')->group(function () {
+    Route::get('/', [DespesaController::class, 'index'])->name('despesas.index');
+    Route::post('/', [DespesaController::class, 'store'])->name('despesas.store');
+    Route::get('/{despesa}', [DespesaController::class, 'show'])->name('despesas.show');
+    Route::put('/{despesa}', [DespesaController::class, 'update'])->name('despesas.update');
+    Route::delete('/{despesa}', [DespesaController::class, 'destroy'])->name('despesas.destroy');
 });
 
 require __DIR__.'/auth.php';

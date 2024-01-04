@@ -31,6 +31,18 @@
                             <span>Categorias</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('subcategorias.index'); }}" class="waves-effect">
+                            <i class="ri-dashboard-line"></i>
+                            <span>Subcategorias</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('despesas.index'); }}" class="waves-effect">
+                            <i class="ri-dashboard-line"></i>
+                            <span>Despesas</span>
+                        </a>
+                    </li>
                 </li>
             </ul>
         </div>
