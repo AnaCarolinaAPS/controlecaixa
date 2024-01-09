@@ -70,6 +70,8 @@ Route::prefix('/categorias')->group(function () {
     Route::delete('/{categoria}', [CategoriaController::class, 'destroy'])->name('categorias.destroy');
 });
 
+Route::get('/gerar-pdf', [CategoriaController::class, 'gerarPDF'])->name('categorias.gerarpdf');
+
 // Pacotes CRUD
 Route::prefix('/subcategorias')->group(function () {
     Route::get('/', [SubcategoriaController::class, 'index'])->name('subcategorias.index');

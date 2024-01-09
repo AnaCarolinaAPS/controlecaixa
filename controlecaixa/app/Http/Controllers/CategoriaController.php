@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Categoria;
+use Spatie\Browsershot\Browsershot;
+use Spipu\Html2Pdf\Html2Pdf;
 
 class CategoriaController extends Controller
 {
@@ -131,5 +133,72 @@ class CategoriaController extends Controller
                 'title'   => 'Erro',
             ]);
         }
+    }
+
+    public function gerarPDF()
+    {
+        // Lógica para obter os dados da categoria
+        $categorias = Categoria::all() ?? [];
+
+
+        if (!$categorias) {
+            // Lógica para lidar com a categoria não encontrada
+            abort(404);
+        }
+
+        $html2pdf = new Html2Pdf();
+        $html2pdf->writeHTML('<h1>HelloWorld</h1>This is my first test');
+        $html2pdf->output();
+
+        // return view('categoria.categoria-pdf', compact('categorias'));
+
+        // Gere o PDF
+        // $pdf = PDF::loadView('categoria.categoria-pdf', compact('categorias'));
+
+        // Gere o PDF
+        // $pdf = PDF::loadView('categoria.categoria-pdf', compact('categorias'));
+
+        // Crie uma instância do TCPDF
+        // $pdf = new TCPDF();
+        // // Adicione uma página
+        // $pdf->AddPage('L', 'A4');
+        // // Renderize a view do Laravel TCPDF
+        // $html = view('categoria.categoria-pdf', compact('categorias'))->render();
+
+        // $view = \View::make('categoria.categoria-pdf', ['categorias' => $categorias]);
+        // $html = $view->render();
+
+        // $data = [
+    	// 	'cliente' => '166LM - Luiz Fabio'
+    	// ];
+
+
+        // $view = \View::make('categoria.categoria-pdf', $data);
+        // $html = $view->render();
+
+        // // // Adicione o conteúdo HTML ao PDF
+        // // $pdf->writeHTML($html, true, false, true, false, '');
+
+        // // // Salve ou envie o PDF como resposta
+        // // // $pdf->Output('caminho/do/pdf/arquivo.pdf', 'F'); // Para salvar o PDF
+        // // $pdf->Output('nome-do-pdf-arquivo.pdf', 'I'); // Para exibir o PDF no navegador
+
+        // // $html = '<h1>Hello World</h1>';
+
+        // PDF::SetTitle('Hello World');
+        // PDF::AddPage();
+        // PDF::writeHTML($html, true, false, true, false, '');
+
+        // PDF::Output('hello_world.pdf');
+
+
+        // $view = \View::make('categoria.categoria-pdf',compact('categorias'));
+        // $html = $view->render();
+
+        // $pdf = new TCPDF();
+        // $pdf::SetTitle('Hello World');
+        // $pdf::AddPage();
+        // $pdf::writeHTML($html, true, false, true, false, '');
+        // $pdf::Output('hello_world.pdf');
     }
 }

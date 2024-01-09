@@ -30,6 +30,10 @@
                         <button type="button" class="btn btn-success waves-effect waves-light mb-2" data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg">
                             <i class="fas fa-plus"></i> Nova
                         </button>
+                        <!-- Botão para a rota gerar-pdf -->
+                        <a href="{{  route('categorias.gerarpdf') }}" target="_blank">
+                            <button>Gerar PDF</button>
+                        </a>
                         <div class="table-responsive">
                             {{-- <table class="table table-centered mb-0 align-middle table-hover table-nowrap"> --}}
                             <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">

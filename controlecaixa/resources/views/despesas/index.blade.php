@@ -30,6 +30,7 @@
                         <button type="button" class="btn btn-success waves-effect waves-light mb-2" data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg">
                             <i class="fas fa-plus"></i> Nova
                         </button>
+
                         <div class="table-responsive">
                             <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                 <thead class="table-light">
@@ -121,7 +122,7 @@
             </div>
             <!-- end col -->
         </div>
-        
+
     </div>
     <div class="modal fade bs-example-modal-lg" tabindex="-1" aria-labelledby="ModalShipper" aria-hidden="true" style="display: none;">
         <div class="modal-dialog modal-lg">
@@ -225,7 +226,7 @@
                             <div class="col">
                                 <div class="form-group">
                                     <label for="subcategoria_id">SubCategoria</label>
-                                    <select class="selectpicker form-control" data-live-search="true" id="dsubcategoria_id" name="subcategoria_id" required> 
+                                    <select class="selectpicker form-control" data-live-search="true" id="dsubcategoria_id" name="subcategoria_id" required>
                                         @foreach ($all_subcategorias as $subcategoria)
                                             <option value="{{ $subcategoria->id }}"> {{ $subcategoria->nome; }} </option>
                                         @endforeach
